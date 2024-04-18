@@ -1,5 +1,5 @@
 <div class="card" style="width: 28rem; padding: 0.5rem;">
-  <%= form_with(model: post) do |form| %>
+  <%= form_with(model: post, method: :post, data: { controller: "comments", action: "turbo:submit-end->comments#clear" }) do |form| %>
     <% if post.errors.any? %>
       <div style="color: red">
         <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
