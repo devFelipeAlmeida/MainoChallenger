@@ -2,26 +2,31 @@
   <% if post.comments.count > 0 %>
     <a href="#" data-bs-toggle="modal" data-bs-target="#post<%= post.id %>_commentsModal" style="text-decoration:none" >
       <small class="text-muted">View All <%= pluralize(post.comments.count, "comment") %> </small>
-      </a>
-    <% end %>
-    <% post.comments.each do |comment| %>
+    </a>
+  <% end %>
+  <% all_comments = (post.comments + post.guest_comments).sort_by(&:created_at) %>
+  <% all_comments.each do |comment| %>
+    <% if comment.is_a?(Comment) %>
       <p class="card-text m-0"><span class="fw-bold"><%= comment.user.username %></span> <%= comment.body %> </p>
+    <% else %>
+      <p class="card-text m-0"><span class="fw-bold">Anônimo</span> <%= comment.body %> </p>
     <% end %>
-    <div class="modal fade" id="post<%= post.id %>_commentsModal" tabindex="-1" aria-labelledby="post<%= post.id %>_commentsModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="post<%= post.id %>_commentsModalLabel">Post Comments</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="d-flex flex-column gap-3" >
-              <% post.comments.each do |comment| %>
-                <%= render "posts/modal_comment", comment: comment %>
-              <% end %>
-            </div>
+  <% end %>
+  <div class="modal fade" id="post<%= post.id %>_commentsModal" tabindex="-1" aria-labelledby="post<%= post.id %>_commentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="post<%= post.id %>_commentsModalLabel">Post Comments</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-3">
+            <% (post.comments + post.guest_comments).sort_by(&:created_at).each do |comment| %>
+              <%= render "posts/modal_comment", post: post, comment: comment %>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>

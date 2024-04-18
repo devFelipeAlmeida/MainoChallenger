@@ -9,4 +9,6 @@ class Post < ApplicationRecord
   has_many :likers, through: :likes, source: :user
 
   has_many :comments
+
+  has_many :guest_comments
 end

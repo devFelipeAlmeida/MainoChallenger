@@ -54,12 +54,22 @@
       <%= render "posts/post_comments", post: post %>
       <small class="text-muted text-uppercase"><%= time_ago_in_words(post.created_at) %></small>
     </div>
-    <%= form_with url: comments_path, method: :post, data: {controller: "comments", action: "turbo:submit-end->comments#clear"} do |f| %>
-      <div class="card-footer d-flex justify-content-between bg-white">
-        <%= f.hidden_field :post_id, value: post.id %>
-        <%= f.text_area :comment_body, class: "w-75", placeholder: "Add a comment...", style:"border:none" %>
-        <%= f.submit "Post", class: "text-primary fw-bold", style: "background:none;border:none" %>
-      </div>
+    <% if user_signed_in? %>
+      <%= form_with url: comments_path, method: :post, data: { controller: "comments", action: "turbo:submit-end->comments#clear" } do |f| %>
+        <div class="card-footer d-flex justify-content-between bg-white">
+          <%= f.hidden_field :post_id, value: post.id %>
+          <%= f.text_area :comment_body, class: "w-75", placeholder: "Add a comment...", style: "border:none" %>
+          <%= f.submit "Post", class: "text-primary fw-bold", style: "background:none;border:none" %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= form_with url: guest_comments_path, method: :post, data: { controller: "comments", action: "turbo:submit-end->comments#clear" } do |f| %>
+        <div class="card-footer d-flex justify-content-between bg-white">
+          <%= f.hidden_field :post_id, value: post.id %>
+          <%= f.text_area :guest_comment, class: "w-75", placeholder: "Add a comment as a guest...", style: "border:none" %>
+          <%= f.submit "Post", class: "text-primary fw-bold", style: "background:none;border:none" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
