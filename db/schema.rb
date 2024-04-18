@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_101446) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
+    t.text "description"
     t.integer "user_id", null: false
     t.boolean "allow_comments"
     t.boolean "show_likes_count"

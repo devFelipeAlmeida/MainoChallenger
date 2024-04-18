@@ -1,7 +1,22 @@
 <div class="d-flex my-5 justify-content-center gap-5">
   <div class="d-flex flex-column gap-3">
-    <% Post.all.each do |post| %>
-      <%= render 'posts/post', post: post %>
-    <% end %>
+    <div class="card" style="width: 29rem; padding: 0.5rem;">
+      <div class="d-flex justify-content-between">
+        <% if user_signed_in? && current_user.profile_pic.attached? %>
+          <h1>SEXO MASTER</h1>
+        <% else %>
+          <%= image_tag "user-pp.png", class: "img-thumbnail rounded-circle", style: "width: 6%" %>
+        <% end %>
+        <% if user_signed_in? %>
+          <%= current_user.username %>
+        <% end %>
+      </div>
+      <%= render 'posts/form', post: Post.new %>
+    </div>
+    <div>
+      <% Post.all.each do |post| %>
+        <%= render 'posts/post', post: post %>
+      <% end %>
+    </div>
   </div>
 </div>
