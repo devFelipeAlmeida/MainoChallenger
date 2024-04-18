@@ -49,6 +49,8 @@
           <% end %>
         </div>
       </div>
+      <%= render "posts/post_actions", post: post %>
+      <p class="card-text"><span class="fw-bold"><%= post.user.username %></span> created the post</p>
       <%= render "posts/post_comments", post: post %>
       <small class="text-muted text-uppercase"><%= time_ago_in_words(post.created_at) %></small>
     </div>
@@ -61,3 +63,8 @@
     <% end %>
   </div>
 </div>
+<script>
+  document.getElementById("post<%= post.id %>_images").addEventListener("dblclick", function() {
+    document.getElementById("post<%= post.id %>actions-likeBtn").click();
+  })
+</script>
