@@ -9,7 +9,7 @@
     <% if comment.is_a?(Comment) %>
       <p class="card-text m-0"><span class="fw-bold"><%= comment.user.username %></span> <%= comment.body %> </p>
     <% else %>
-      <p class="card-text m-0"><span class="fw-bold">Anônimo</span> <%= comment.body %> </p>
+      <p class="card-text m-0"><span class="fw-bold">Anônimo_<%= comment.id %></span> <%= comment.body %> </p>
     <% end %>
   <% end %>
   <div class="modal fade" id="post<%= post.id %>_commentsModal" tabindex="-1" aria-labelledby="post<%= post.id %>_commentsModalLabel" aria-hidden="true">

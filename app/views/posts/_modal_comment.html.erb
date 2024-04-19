@@ -9,16 +9,20 @@
             <% end %>
           </small>
         <% else %>
-          <small class="fw-bold">Anônimo</small>
+          <small class="fw-bold">Anônimo_<%= comment.id %></small>
         <% end %>
         <small> <%= comment.body %> </small>
         <small class="text-muted"> <%= time_ago_in_words(comment.created_at) %> </small>
       </div>
     </div>
     <% if comment.respond_to?(:user) && comment.user == current_user %>
-      <%= button_to comment_path(id: comment.id), method: :delete, style: "background:none; border:none" do %>
-        <i class="fa fa-times"></i>
-      <% end %>
-    <% end %>
+  <%= button_to comment_path(id: comment.id), method: :delete, style: "background:none; border:none" do %>
+    <i class="fa fa-times"></i>
+  <% end %>
+<% elsif !comment.respond_to?(:user) && comment.post.user == current_user %>
+  <%= button_to guest_comment_path(id: comment.id), method: :delete, style: "background:none; border:none" do %>
+    <i class="fa fa-times"></i>
+  <% end %>
+<% end %>
   </div>
 </div>

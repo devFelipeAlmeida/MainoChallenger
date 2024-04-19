@@ -3,12 +3,29 @@ class GuestCommentsController < ApplicationController
 
   def create
     @guest_comment = @post.guest_comments.create(body: params[:guest_comment])
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "post#{@post.id}comments",
+          partial: "posts/post_comments",
+          locals: { post: @post }
+        )
+      end
+    end
   end
 
   def destroy
-    @guest_comment = @post.guest_comments.find(params[:id])
+    @guest_comment = GuestComment.find(params[:id])
     @guest_comment.destroy
-    redirect_to @post, notice: 'Guest comment was successfully deleted.'
+  
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.remove(
+          "post#{@guest_comment.post_id}ModalComment#{@guest_comment.id}"
+        )
+      end
+    end
   end
 
   private

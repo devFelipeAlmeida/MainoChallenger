@@ -1,3 +1,2 @@
-<h1>Detalhes do Usuário</h1>
-<p><strong>Nome:</strong> <%= @user.full_name %></p>
-<p><strong>Email:</strong> <%= @user.username %></p>
+<%= render 'users/profile_header', user: @user %>
+<%= render 'users/profile_posts', user: @user %>
