@@ -1,4 +1,4 @@
-<div class="card" style="width: 28rem; padding: 0.5rem;">
+<div class="card" style="width: 34rem; padding: 0.5rem;">
   <%= form_with(model: post, method: :post, data: { controller: "comments", action: "turbo:submit-end->comments#clear" }) do |form| %>
     <% if post.errors.any? %>
       <div style="color: red">
@@ -14,15 +14,22 @@
       <%= form.text_area :description, class: "form-control no-outline", placeholder: "What's happening?", rows: 3 %>
     </div>
     <div class="d-flex justify-content-between">
-      <div>
-        <%= form.file_field :images, id: "file-upload", multiple: true, style: "display: none" %>
-        <label for="file-upload" style="cursor: pointer;">
-          <i class="fa-regular fa-image fa-2x"></i>
-        </label>
-      </div>
-      <div>
-        <%= form.submit 'Post' %>
-      </div>
-    </div>
+  <div style="position: relative;">
+    <label for="file-count" style="cursor: pointer;">
+      <i class="fa-regular fa-image fa-2x blue-text" style="transition: transform 0.2s;"></i>
+    </label>
+    <%= form.file_field :images, id: "file-count", multiple: true, onchange: "displayFileCount(this)", style: "opacity: 0; width: 0; height: 0; overflow: hidden;" %>
+    <span id="file-count-info" class="file-count-info blue-text" style="position: absolute; top: 0; left: 2rem;"></span>
+  </div>
+  <div>
+    <%= form.submit 'Post', class: "btn bg-color" %>
+  </div>
+</div>
   <% end %>
 </div>
+<script>
+  function displayFileCount(input) {
+    const fileCount = input.files.length;
+    document.getElementById("file-count-info").textContent = `${fileCount} arquivo(s) selecionado(s)`;
+  }
+</script>

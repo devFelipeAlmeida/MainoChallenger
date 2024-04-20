@@ -4,15 +4,9 @@ html {
 
 body
 {
-    background-color: #1f2937;
-    color: white;
     height: 100%;
 }
 
-.nav-bg
-{
-  background-color: #121821;
-}
 
 .no-outline {
   border: none !important;
@@ -22,4 +16,42 @@ body
 
 .color-red {
   color: red;
+}
+
+.fa-regular:hover {
+  transform: scale(1.2); /* Ajuste conforme necessário */
+}
+
+.dropdown-menu.no-bullets {
+  list-style-type: none;
+}
+
+
+.blue-text {
+  color: #003a81;
+}
+
+.blue-text:hover {
+  color: #28a811;
+}
+
+
+.bg-color {
+  background-color: #003a81; /* Azul */
+  color: #fff;
+}
+
+.bg-color:hover {
+  background-color: #28a811; /* Cor da borda azul */
+  color: #fff;
+}
+
+.bg-colorReverse {
+  background-color: #28a811; /* Azul */
+  color: #fff;
+}
+
+.bg-colorReverse:hover {
+  background-color: #003a81; /* Cor da borda azul */
+  color: #fff;
 }
