@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.includes(:tags).find(params[:id])
   end
 
   # GET /posts/new
@@ -32,6 +33,11 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def search_tags
+    @posts = Tag.find_by("name LIKE ?", "%#{params[:search_query]}%").posts
+    render :index
   end
 
   # PATCH/PUT /posts/1 or /posts/1.json
