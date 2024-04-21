@@ -7,9 +7,11 @@
   <% all_comments = (post.comments + post.guest_comments).sort_by(&:created_at) %>
   <% all_comments.each do |comment| %>
     <% if comment.is_a?(Comment) %>
-      <p class="card-text m-0"><span class="fw-bold"><%= comment.user.username %></span> <%= comment.body %> </p>
+      <%= link_to user_path(comment.user) do %>
+     <p class="card-text m-0"><%= link_to comment.user, class: "a-decoration-none no-underline blue-color", data: {turbo: 'false'} do %><span class="fw-bold"><%= comment.user.username %></span> <% end %> <%= comment.body %> </p>
+      <% end %>
     <% else %>
-      <p class="card-text m-0"><span class="fw-bold">Anônimo_<%= comment.id %></span> <%= comment.body %> </p>
+      <p class="card-text m-0"><span class="fw-bold green-color">Anônimo_<%= comment.id %></span> <%= comment.body %> </p>
     <% end %>
   <% end %>
   <div class="modal fade" id="post<%= post.id %>_commentsModal" tabindex="-1" aria-labelledby="post<%= post.id %>_commentsModalLabel" aria-hidden="true">

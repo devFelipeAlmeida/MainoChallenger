@@ -10,8 +10,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+<body>
+  <% unless !current_user && (current_page?(new_user_registration_path) || current_page?(new_user_session_path)) %>
     <%= render 'layouts/navbar' %>
-    <%= yield %>
-  </body>
+  <% end %>
+  <%= yield %>
+</body>
 </html>

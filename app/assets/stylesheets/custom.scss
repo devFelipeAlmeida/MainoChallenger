@@ -1,3 +1,8 @@
+*
+{
+  font-family: Montserrat,Sans-serif;
+}
+
 html {
     height: 100vh;
   }
@@ -5,8 +10,15 @@ html {
 body
 {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
+.scroll-config {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 
 .no-outline {
   border: none !important;
@@ -26,6 +38,30 @@ body
   list-style-type: none;
 }
 
+.green-background {
+  background-color: #28a811;
+  color: #fff;
+}
+
+.green-background:hover
+{
+  background-color: #1f860d;
+  color: #fff;
+}
+
+.green-color {
+  color: #28a811;
+}
+
+.blue-color
+{
+  color: #003a81;
+}
+
+.blue-color:hover
+{
+  color: #002a5e;
+}
 
 .blue-text {
   color: #003a81;
@@ -46,12 +82,6 @@ body
   color: #fff;
 }
 
-.bg-colorReverse {
-  background-color: #28a811; /* Azul */
-  color: #fff;
-}
-
-.bg-colorReverse:hover {
-  background-color: #003a81; /* Cor da borda azul */
-  color: #fff;
+.no-underline {
+  text-decoration: none;
 }

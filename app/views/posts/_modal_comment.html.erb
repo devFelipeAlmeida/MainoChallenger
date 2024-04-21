@@ -4,12 +4,12 @@
       <div class="d-flex flex-column mx-3 justify-content-center">
         <% if comment.is_a?(Comment) %>
           <small class="fw-bold" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:10rem">
-            <%= link_to comment.user, class: "a-decoration-none", data: { turbo: 'false' } do %>
+            <%= link_to comment.user, class: "a-decoration-none no-underline blue-color", data: { turbo: 'false' } do %>
               <%= comment.user.username %>
             <% end %>
           </small>
         <% else %>
-          <small class="fw-bold">Anônimo_<%= comment.id %></small>
+          <small class="fw-bold green-color">Anônimo_<%= comment.id %></small>
         <% end %>
         <small> <%= comment.body %> </small>
         <small class="text-muted"> <%= time_ago_in_words(comment.created_at) %> </small>
