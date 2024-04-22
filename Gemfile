@@ -74,4 +74,4 @@ gem "font-awesome-sass", "~> 6.5.1"
 
 gem 'sassc-rails', '~> 2.1'
 
-gem 'ransack', '~> 4.0'
+gem 'kaminari'

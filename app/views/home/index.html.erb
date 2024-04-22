@@ -8,17 +8,20 @@
           <%= image_tag "user-pp.png", class: "img-thumbnail rounded-circle", style: "width: 6%" %>
         <% end %>
         <% if user_signed_in? %>
-        <%= link_to user_path(current_user), class: "a-decoration-none", style: "text-decoration: none;" do %>
-          <span class="fw-bold mx-2 blue-text"><%= current_user.username %></span>
+          <%= link_to user_path(current_user), class: "a-decoration-none", style: "text-decoration: none;" do %>
+            <span class="fw-bold mx-2 blue-text"><%= current_user.username %></span>
           <% end %>
         <% end %>
       </div>
       <%= render 'posts/form', post: Post.new %>
     </div>
     <div>
-      <% Post.all.each do |post| %>
+      <% @posts.each do |post| %>
         <%= render 'posts/post', post: post %>
       <% end %>
+      <div class="d-flex justify-content-center">
+        <%= paginate @posts %>
+      </div>
     </div>
   </div>
 </div>

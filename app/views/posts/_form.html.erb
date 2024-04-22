@@ -13,23 +13,47 @@
     <div class="mb-3 border-bottom" style="border-bottom: 2px solid black;">
       <%= form.text_area :description, class: "form-control no-outline", placeholder: "What's happening?", rows: 3 %>
     </div>
+    <div class="mb-3 border-bottom" style="border-bottom: 2px solid black;">
+      <div>
+        <%= form.text_field :tag_name, 
+        class: "form-control", 
+        placeholder: "#tag1, #tag2",
+        oninput: "validateTagInput(this)" %>
+        <div id="tag-error" style="color: red;"></div>
+        <!-- Exibição de mensagens de erro -->
+      </div>
+    </div>
     <div class="d-flex justify-content-between">
-  <div style="position: relative;">
-    <label for="file-count" style="cursor: pointer;">
-      <i class="fa-regular fa-image fa-2x blue-color" style="transition: transform 0.2s;"></i>
-    </label>
-    <%= form.file_field :images, id: "file-count", multiple: true, onchange: "displayFileCount(this)", style: "opacity: 0; width: 0; height: 0; overflow: hidden;" %>
-    <span id="file-count-info" class="file-count-info blue-color" style="position: absolute; top: 0; left: 2rem;"></span>
-  </div>
-  <div>
-    <%= form.submit 'Post', class: "btn green-background" %>
-  </div>
-</div>
+      <div style="position: relative;">
+        <label for="file-count" style="cursor: pointer;">
+          <i class="fa-regular fa-image fa-2x blue-color" style="transition: transform 0.2s;"></i>
+        </label>
+        <%= form.file_field :images, id: "file-count", multiple: true, onchange: "displayFileCount(this)", style: "opacity: 0; width: 0; height: 0; overflow: hidden;" %>
+        <span id="file-count-info" class="file-count-info blue-color" style="position: absolute; top: 0; left: 2rem;"></span>
+      </div>
+      <div>
+        <%= form.submit 'Post', class: "btn green-background" %>
+      </div>
+    </div>
   <% end %>
 </div>
 <script>
   function displayFileCount(input) {
     const fileCount = input.files.length;
     document.getElementById("file-count-info").textContent = `${fileCount} arquivo(s) selecionado(s)`;
+  }
+
+    function validateTagInput(input) {
+    const tags = input.value.split(',').map(tag => tag.trim());
+    const invalidTags = tags.filter(tag => tag && !tag.startsWith('#')); // Considera apenas tags não vazias
+
+    const errorMessage = document.getElementById("tag-error");
+    if (invalidTags.length > 0) {
+      errorMessage.textContent = "Tags devem começar com #.";
+      input.style.borderColor = "red";  // Adiciona a borda vermelha
+    } else {
+      errorMessage.textContent = ""; // Remove a mensagem de erro
+      input.style.borderColor = "";  // Restaura a borda original
+    }
   }
 </script>

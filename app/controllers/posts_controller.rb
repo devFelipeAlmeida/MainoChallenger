@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).per(3)
   end
 
   # GET /posts/1 or /posts/1.json
@@ -22,18 +22,33 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = current_user.posts.new(post_params)
+    @post = current_user.posts.new(post_params)  # Cria um novo post do usuário atual
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to root_path, notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+    if params[:post][:tag_name].present?
+      tag_list = params[:post][:tag_name].split(',')
+      .map(&:strip)
+      .select { |tag| tag.start_with?('#') }  # Apenas tags que começam com '#'
+
+# Se a lista de tags estiver vazia ou diferente da original, sinaliza um erro
+if tag_list.empty? || tag_list.size < params[:post][:tag_name].split(',').size
+@post.errors.add(:tag_name, "Deve começar com '#' e separada por vírgulas")
+render :new
+return  # Termina a ação se houver erro
+end
+
+# Adiciona as tags ao post
+tag_list.each do |tag_name|
+tag = Tag.find_or_create_by(name: tag_name)
+@post.tags << tag unless @post.tags.include?(tag)
+end
+end
+
+if @post.save
+redirect_to @post, notice: 'Post criado com sucesso!'
+else
+render :new
+end
+end
 
   def search_tags
     @posts = Tag.find_by("name LIKE ?", "%#{params[:search_query]}%").posts
@@ -71,6 +86,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :user_id, :allow_comments, :show_likes_count, :description, images: [])
+      params.require(:post).permit(:title, :user_id, :allow_comments, :show_likes_count, :description, :tags, images: [])
     end
 end

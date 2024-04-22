@@ -1,0 +1,6 @@
+<span class="prev">
+  <%= link_to_unless(current_page.first?, t('views.pagination.previous').html_safe, url, rel: 'prev', class: 'previous-link', remote: remote) do %>
+    <span class="previous-text">Anterior</span> <!-- Se você quiser texto personalizado -->
+    <i class="fa fa-arrow-left"></i>  <!-- Se quiser adicionar um ícone -->
+  <% end %>
+</span>

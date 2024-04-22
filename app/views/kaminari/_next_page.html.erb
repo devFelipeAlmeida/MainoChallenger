@@ -1,0 +1,4 @@
+<!-- Template para a próxima página -->
+<span class="next">
+  <%= link_to_unless(current_page.last?, t('views.pagination.next').html_safe, url, rel: 'next', class: 'next-link', remote: remote) %>
+</span>

@@ -6,10 +6,9 @@
     <% end %>
     <!-- Input de busca -->
     <div class="col-auto">
-      <%= form_with(url: search_tags_path, method: :get, class:"d-flex") do |f| %>
-        
-          <%= f.text_field :search_query, class: "form-control me-2 border-0", type:"search", placeholder:"Search" %>  
-          <%= f.submit 'button' %>    
+      <%= form_with(url: search_tags_path, method: :get, class: "d-flex align-items-center") do |f| %>
+        <%= f.text_field :search_query, class: "form-control border-end-0", type: "search", placeholder: "Search Tags" %>
+        <%= f.submit 'Search', class: "btn border-start-0 green-background" %>  <!-- `border-start-0` remove borda para parecer um elemento contínuo -->
       <% end %>
     </div>
     <!-- Dropdown do usuário atual -->
