@@ -8,7 +8,7 @@ pt:
   password: "Senha"
   confirm: "Confirmar senha"
   fullname: "Nome completo"
-  username: "Úsuario"
+  username: "Usuário"
   enter: "Entrar"
   here: "Aqui!"
   resbotton: "Cadastrar"
