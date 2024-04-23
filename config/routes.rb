@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   patch "password/reset/edit", to: "password_resets#update"
 
   get 'search_tags', to: "posts#search_tags"
+
+  get 'set_locale/:locale', to: 'application#set_locale', as: :set_locale
 end

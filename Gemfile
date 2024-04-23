@@ -75,3 +75,10 @@ gem "font-awesome-sass", "~> 6.5.1"
 gem 'sassc-rails', '~> 2.1'
 
 gem 'kaminari'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+end
+
+gem 'dotenv', '~> 2.1', '>= 2.1.1'

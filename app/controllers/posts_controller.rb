@@ -22,19 +22,18 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = current_user.posts.new(post_params)  # Cria um novo post do usuário atual
+    @post = current_user.posts.new(post_params)
 
     if params[:post][:tag_name].present?
       tag_list = params[:post][:tag_name].split(',')
       .map(&:strip)
-      .select { |tag| tag.start_with?('#') }  # Apenas tags que começam com '#'
+      .select { |tag| tag.start_with?('#') }
 
-# Se a lista de tags estiver vazia ou diferente da original, sinaliza um erro
-if tag_list.empty? || tag_list.size < params[:post][:tag_name].split(',').size
-@post.errors.add(:tag_name, "Deve começar com '#' e separada por vírgulas")
-render :new
-return  # Termina a ação se houver erro
-end
+      if tag_list.empty? || tag_list.size < params[:post][:tag_name].split(',').size
+      @post.errors.add(:tag_name, "Deve começar com '#' e separada por vírgulas")
+      render :new
+     return 
+    end
 
 # Adiciona as tags ao post
 tag_list.each do |tag_name|
@@ -44,15 +43,21 @@ end
 end
 
 if @post.save
-redirect_to @post, notice: 'Post criado com sucesso!'
+redirect_to root_path, notice: 'Post criado com sucesso!'
 else
 render :new
 end
 end
 
   def search_tags
-    @posts = Tag.find_by("name LIKE ?", "%#{params[:search_query]}%").posts
-    render :index
+    @posts = Tag.find_by("name LIKE ?", "%#{params[:search_query]}%")&.posts
+
+    if @posts.nil?
+      flash[:notice] = "Nenhum post encontrado."
+      redirect_to root_path
+    else
+      render :index
+    end
   end
 
   # PATCH/PUT /posts/1 or /posts/1.json

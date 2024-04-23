@@ -49,6 +49,17 @@ body
   color: #fff;
 }
 
+.blue-background {
+  background-color: #003a81;
+  color: #fff;
+}
+
+.blue-background:hover
+{
+  background-color: #002a5e;
+  color: #fff;
+}
+
 .green-color {
   color: #28a811;
 }
@@ -69,17 +80,6 @@ body
 
 .blue-text:hover {
   color: #28a811;
-}
-
-
-.bg-color {
-  background-color: #003a81; /* Azul */
-  color: #fff;
-}
-
-.bg-color:hover {
-  background-color: #28a811; /* Cor da borda azul */
-  color: #fff;
 }
 
 .no-underline {
@@ -197,6 +197,20 @@ body
   border-radius: 0;  /* Remove bordas arredondadas para uma transição suave */
 }
 
-.btn {
+.btnn {
   border-radius: 0;  /* Para que o botão tenha bordas planas, correspondendo ao campo de entrada */
+}
+
+.navbarr {
+  padding-top: 0.25rem; /* Para reduzir altura */
+  padding-bottom: 0.25rem;
+  margin: 0;
+}
+
+.submit-btn {
+  color: rgb(0, 140, 187);
+}
+
+.submit-btn:hover {
+  color: rgb(0, 116, 155);
 }

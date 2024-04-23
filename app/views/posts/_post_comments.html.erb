@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "post#{post.id}comments" do %>
   <% if post.comments.count > 0 %>
     <a href="#" data-bs-toggle="modal" data-bs-target="#post<%= post.id %>_commentsModal" style="text-decoration:none" >
-      <small class="text-muted">View All <%= pluralize(post.comments.count, "comment") %> </small>
+      <small class="text-muted"><%= t(:view)%> <%= pluralize(post.comments.count, t(:comment)) %> </small>
     </a>
   <% end %>
   <% all_comments = (post.comments + post.guest_comments).sort_by(&:created_at) %>

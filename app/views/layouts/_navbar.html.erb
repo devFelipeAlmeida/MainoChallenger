@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light sticky-top bg-white border-bottom" style="border-color: #afafaf">
+<nav class="navbarr navbar navbar-expand-lg bg-light sticky-top bg-white border-bottom" style="border-color: #afafaf">
   <div class="container-fluid d-flex justify-content-between align-items-center w-75">
     <!-- Logo -->
     <%= link_to root_path, class: "navbar-brand" do %>
@@ -7,8 +7,8 @@
     <!-- Input de busca -->
     <div class="col-auto">
       <%= form_with(url: search_tags_path, method: :get, class: "d-flex align-items-center") do |f| %>
-        <%= f.text_field :search_query, class: "form-control border-end-0", type: "search", placeholder: "Search Tags" %>
-        <%= f.submit 'Search', class: "btn border-start-0 green-background" %>  <!-- `border-start-0` remove borda para parecer um elemento contínuo -->
+        <%= f.text_field :search_query, class: "form-control border-end-0", type: "search", placeholder: t(:searchTag) %>
+        <%= f.submit t(:search), class: "btn btnn border-start-0 green-background" %>  <!-- `border-start-0` remove borda para parecer um elemento contínuo -->
       <% end %>
     </div>
     <!-- Dropdown do usuário atual -->
@@ -24,7 +24,42 @@
         </ul>
       </div>
     <% else %>
-      <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
-    <% end %>
-  </div>
+      <div class="d-flex">
+        <div class="m-1">
+          <%= link_to t(:enter), new_user_session_path, class: "btn blue-background m-1" %>
+          <%= link_to t(:resbotton), new_user_registration_path, class: "btn green-background" %>
+        </div>
+        <div class="dropdown m-2">
+          <button
+          class="btn dropdown-toggle bg-white border-none decoration text-dark"
+           type="button"
+           id="languageDropdown"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            <!-- Exibe o idioma atual usando imagens -->
+            <% case I18n.locale %>
+            <% when :en %>
+            <img src="<%= image_path('united-states.png') %>" alt="Inglês" style="width: 20px; height: auto;"> <%= t(:english) %>
+            <% when :pt %>
+            <img src="<%= image_path('brazil.png') %>" alt="Português" style="width: 20px; height: auto;"> <%= t(:ptbr) %>
+          <% else %>
+            <i class="fas fa-globe"></i>
+          <% end %>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+          <li>
+            <%= link_to set_locale_path(:en), class: "dropdown-item text-dark" do %>
+              <img src="<%= image_path('united-states.png') %>" alt="Inglês" style="width: 20px; height: auto;"> <%= t(:english) %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to set_locale_path(:pt), class: "dropdown-item text-dark" do %>
+              <img src="<%= image_path('brazil.png') %>" alt="Português" style="width: 20px; height: auto;"> <%= t(:ptbr) %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>
 </nav>

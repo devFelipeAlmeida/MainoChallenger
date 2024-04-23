@@ -1,3 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-light vw-50" style="background-color: rgba(255, 255, 255, 0.5);">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Conteúdo da Navbar -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto"> <!-- Alinha elementos à direita -->
+        <!-- Dropdown para troca de idioma -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <% case I18n.locale %>
+              <% when :en %>
+                <img src="<%= image_path('united-states.png') %>" alt="Inglês" style="width: 20px; height: auto;"> Inglês
+              <% when :pt %>
+                <img src="<%= image_path('brazil.png') %>" alt="Português" style="width: 20px; height: auto;"> Português
+              <% else %>
+                <i class="fas fa-globe"></i> Idioma
+            <% end %>
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+            <li>
+              <%= link_to set_locale_path(:en), class: "dropdown-item" do %>
+                <img src="<%= image_path('united-states.png') %>" alt="Inglês" style="width: 20px; height: auto;"> Inglês
+              <% end %>
+            </li>
+            <li>
+              <%= link_to set_locale_path(:pt), class: "dropdown-item" do %>
+                <img src="<%= image_path('brazil.png') %>" alt="Português" style="width: 20px; height: auto;"> Português
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <% if flash.any? %>
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> text-center">
+        <%= message %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 <section class="vh-100 d-flex justify-content-center align-items-center">
   <div class="container-fluid h-custom">
     <div class="row">
@@ -15,35 +63,35 @@
                   </ul>
                 </div>
               <% end %>
-              <h1>Welcome to <span class ="blue-color">Mainô</span><span class="green-color">Blog</span>,</h1>
-              <h3>make your <span class="fw-bold">LOGIN</span></h3>
+              <h1><%= t(:welcome) %><span class ="blue-color"> Mainô</span><span class="green-color">Blog</span>,</h1>
+              <h3><%= t(:make)%> <span class="fw-bold">LOGIN</span></h3>
               <div class="card w-100 p-3" style="max-width: 600px;">
                 <div data-mdb-input-init class="form-outline mb-4">
                   <%= f.label :email, "E-mail", class: "form-label fw-bold" %>
                   <%= f.email_field :email, class: "form-control form-control-lg", placeholder: "Enter a valid email address" %>
                 </div>
                 <div data-mdb-input-init class="form-outline mb-3">
-                  <%= f.label :password, 'Password', class: "form-label fw-bold" %><br />
+                  <%= f.label :password, t(:password), class: "form-label fw-bold" %><br />
                   <%= f.password_field :password, class: "form-control form-control-lg", placeholder: "Enter password" %>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
                     <%= f.check_box :remember_me, class: 'form-check-input' %>
-                    <%= f.label :remember_me, class: 'form-check-label' %>
+                    <%= f.label :remember_me, t(:remember), class: 'form-check-label' %>
                   </div>
                 </div>
                 <div class="text-center text-lg-start mt-4 pt-2">
                   <%= f.submit "Login", class: "btn btn-lg green-background", style: "padding-left: 2.5rem; padding-right: 2.5rem;" %>
-                  <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account?  <%= link_to "Register", new_user_registration_path, class: "blue-color" %></p>
+                  <p class="small fw-bold mt-2 pt-1 mb-0"><%= t(:register) %>?  <%= link_to t(:resbotton), new_user_registration_path, class: "green-color" %></p>
                 </div>
                 <div class="text-center text-lg-start">
-                  <p class="small fw-bold mt-2 pt-1 mb-0">Forgot your password? Click  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-                      <%= link_to "here!", new_password_path(resource_name), class: "green-color" %><br />
+                  <p class="small fw-bold mt-2 pt-1 mb-0"><%= t(:forgot) %>? Click  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                      <%= link_to t(:here), new_password_path(resource_name), class: "green-color" %><br />
                     <% end %></p>
                 </div>
                 <div class="text-center text-lg-start">
-                  <p class="small fw-bold mt-2 pt-1 mb-0">Do you want to return to the home page ? Click 
-                    <%= link_to "here!", root_path, class: "green-color" %></p>
+                  <p class="small fw-bold mt-2 pt-1 mb-0"><%= t(:home)%>? Click 
+                    <%= link_to t(:here), root_path, class: "green-color" %></p>
                 </div>
               </div>
             <% end %>

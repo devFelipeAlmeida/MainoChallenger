@@ -5,7 +5,7 @@
         <div>
           <%= link_to post.user, class: "a-decoration-none", style: "text-decoration: none;" do %>
             <% if post.user.profile_pic.attached? %>
-              <%= image_tag post.user.profile_pic, class: "img-thumbnail rounded-circle", style: "width: 10%" %>
+              <%= image_tag post.user.profile_pic, class: "img-thumbnail rounded-circle", style: "width: 15%" %>
             <% else %>
               <%= image_tag "user-pp.png", class: "img-thumbnail rounded-circle", style: "width: 10%" %>
             <% end %>
@@ -20,6 +20,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><%= button_to "Delete post", post, method: :delete, class:"dropdown-item"%></li>
+                <li><%= link_to "Edit post", edit_post_path(post), class: "dropdown-item" %></li>
               </ul>
             </div>
           <% end %>
@@ -31,7 +32,6 @@
     </div>
     <div class="card-body">
       <% if post.images.count > 1 %>
-        <!-- Se houver mais de uma imagem, exiba o carrossel -->
         <div id="post<%= post.id %>_images" class="carousel slide" data-bs-ride="true">
           <div class="carousel-inner">
             <% post.images.each_with_index do |img, i| %>
@@ -66,20 +66,20 @@
         <div class="card-footer d-flex justify-content-between bg-white">
           <%= f.hidden_field :post_id, value: post.id %>
           <%= f.text_area :comment_body, class: "w-75", placeholder: "Add a comment...", style:"border:none" %>
-          <%= f.submit "Post", class: "text-primary fw-bold", style: "background:none;border:none" %>
+          <%= f.submit t(:post), class: "text-primary fw-bold", style: "background:none;border:none" %>
         </div>
       <% end %>
     <% else %>
       <%= form_with url: guest_comments_path, method: :post, data: { controller: "comments", action: "turbo:submit-end->comments#clear" } do |f| %>
         <div class="card-footer d-flex justify-content-between bg-white">
           <%= f.hidden_field :post_id, value: post.id %>
-          <%= f.text_area :guest_comment, class: "w-75", placeholder: "Add a comment as a guest...", style: "border:none" %>
-          <%= f.submit "Post", class: "text-primary fw-bold", style: "background:none;border:none" %>
+          <%= f.text_area :guest_comment, class: "w-75 form-control", placeholder: t(:guest) %>
+          <%= f.submit t(:post), class: " fw-bold submit-btn", style: "background:none;border:none" %>
         </div>
       <% end %>
     <% end %>
     <% post.tags.each do |tag| %>
-      <%= tag.name %>  <!-- Ou outro atributo que você deseja exibir -->
+      <%= tag.name %>
     <% end %>
   </div>
 </div>
